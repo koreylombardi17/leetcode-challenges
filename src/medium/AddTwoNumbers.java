@@ -12,49 +12,29 @@ public class AddTwoNumbers {
 
 public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
 
-        String s1 = "";
-        String s2 = "";
+        ListNode head = new ListNode(0);
+        ListNode list1 = l1, list2 = l2, lSum = head;
+        int val1 = 0, val2 = 0, sum = 0, carry = 0;
 
-        s1 = s1 + l1.val;
-        while (l1.next != null) {
-            s1 = s1 + l1.next.val;
-            l1 = l1.next;
-        }
-
-        s2 = s2 + l2.val;
-        while (l2.next != null) {
-            s2 = s2 + l2.next.val;
-            l2 = l2.next;
-        }
-
-        StringBuilder sb1 = new StringBuilder();
-        sb1.append(s1);
-        sb1 = sb1.reverse();
-
-        StringBuilder sb2 = new StringBuilder();
-        sb2.append(s2);
-        sb2 = sb2.reverse();
-
-        s1 = sb1.toString();
-        s2 = sb2.toString();
-
-        BigInteger num1 = new BigInteger(s1);
-        BigInteger num2 = new BigInteger(s2);
-        BigInteger sum = num1.add(num2);
-
-        StringBuilder sbSum = new StringBuilder();
-        sbSum.append(sum);
-        sbSum = sbSum.reverse();
-
-        ListNode retList = new ListNode(Character.getNumericValue(sbSum.charAt(0)), null);
-        for (int i = 1; i < sbSum.length(); i++){
-            ListNode tempNode = retList;
-            while(tempNode.next != null) {
-                tempNode = tempNode.next;
+        while (list1 != null || list2 != null) {
+            if (list1 != null) {
+                val1 = list1.val;
+                list1 = list1.next;
             }
-            tempNode.next = new ListNode(Character.getNumericValue(sbSum.charAt(i)), null);
-        }
-        return retList;
+            else
+                val1 = 0;
+
+            if (list2 != null) {
+                val2 = list2.val;
+                list2 = list2.next;
+            }
+            else
+                val2 = 0;
+
+            sum = val1 + val2 + carry;
+            carry = sum / 10;
+            lSum.next = new ListNode(sum % 10);
+            lSum = lSum.next;
     }
 
     // Definition for singly-linked list.
